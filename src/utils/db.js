@@ -1,7 +1,7 @@
 import { isArray } from "util";
 
-const PouchDB = require("pouchdb");
-PouchDB.plugin(require("pouchdb-find"));
+const PouchDB = require("pouchdb").default;
+PouchDB.plugin(require("pouchdb-find").default);
 // PouchDB.plugin(require('pouchdb-debug'));
 const db = new PouchDB("dbname");
 const remoteCouch = "http://admin:admin@192.168.0.27:5984/dbname";
@@ -11,7 +11,7 @@ const remoteCouch = "http://admin:admin@192.168.0.27:5984/dbname";
 var opts = { live: true, retry: true };
 db.replicate.to(remoteCouch, opts);
 db.replicate.from(remoteCouch, opts);
-
+debugger;
 db.createIndex({
   index: { fields: ["elementType"] }
 });

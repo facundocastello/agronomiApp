@@ -11,10 +11,10 @@ class Errors extends Component {
       if (errorKeys.length === 0) return;
       const Message = () =>
         errorKeys.map(key => (
-          <div>
-            <strong className='text-capitalize'>{key}</strong>
-            {errors[key].map(error => (
-              <li>{error}</li>
+          <div key={key}>
+            <strong className="text-capitalize">{key}</strong>
+            {errors[key].map((error, index) => (
+              <li key={`${key}-${index}`}>{error}</li>
             ))}
           </div>
         ));
