@@ -1,0 +1,34 @@
+{
+    "docs": [
+      {
+        "_id": "Vaca",
+        "elementType": "bovineType",
+        "name": "Vaca"
+      },
+      {
+        "_id": "Toro",
+        "elementType": "bovineType",
+        "name": "Toro"
+      },
+      {
+        "_id": "Novillo",
+        "elementType": "bovineType",
+        "name": "Novillo"
+      },
+      {
+        "_id": "Novilla",
+        "elementType": "bovineType",
+        "name": "Novilla"
+      },
+      {
+        "_id": "Toro",
+        "elementType": "bovineType",
+        "name": "Toro"
+      },
+      {
+        "_id": "Toro",
+        "elementType": "bovineType",
+        "name": "Toro"
+      }
+    ]
+  }
