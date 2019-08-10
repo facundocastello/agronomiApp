@@ -13,15 +13,15 @@ db.replicate.to(remoteCouch, opts);
 db.replicate.from(remoteCouch, opts);
 
 db.createIndex({
-  index: { fields: ["type"] }
+  index: { fields: ["elementType"] }
 });
 
 export default db;
 
-export const addData = (type, data) => {
+export const addData = (elementType, data) => {
   return db.put({
     _id: new Date().toISOString(),
-    type: type,
+    elementType: elementType,
     ...data
   });
 };
@@ -54,7 +54,7 @@ export const deleteDataRecursive = filter => {
   }).then(async res => {
     for (let indexDoc = 0; indexDoc < res.docs.length; indexDoc++) {
       const doc = res.docs[indexDoc];
-      await deleteDataRecursive({ [doc.type]: doc._id });
+      await deleteDataRecursive({ [doc.elementType]: doc._id });
       db.remove(doc);
     }
   });
@@ -74,11 +74,11 @@ export const listenTo = (filter, value, dispatch, action) => {
   });
 };
 
-export const getDataByType = ({ type, filters, relations }) => {
+export const getDataByType = ({ elementType, filters, relations }) => {
   return db
     .find({
       selector: {
-        type: type,
+        elementType: elementType,
         ...filters
       }
     })
