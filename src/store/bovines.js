@@ -5,7 +5,9 @@ import db, {
   deleteData,
   deleteDataRecursive,
   addData
-} from "./db";
+} from "../utils/db";
+import validate from "../utils/validation";
+import { receiveErrors } from "./ui";
 
 const initialState = {
   bovines: []
@@ -13,14 +15,27 @@ const initialState = {
 
 export const addBovine = params => {
   return (dispatch, getState) => {
-    addData("bovine", params);
+    const validation = validate(
+      {
+        name: "required,notempty",
+        type: "exists|bovineType",
+        parent: "exists|bovine"
+      },
+      params
+    ).then(res => {
+      if (Object.keys(res).length > 0) {
+        dispatch(receiveErrors(res));
+        return;
+      }
+      addData("bovine", params);
+    });
   };
 };
 
 export const getBovine = () => {
   return (dispatch, getState) => {
     getDataByType({
-      type: "bovine",
+      elementType: "bovine",
       relations: [{ name: "parent" }]
     }).then(res => {
       dispatch(receiveBovine(res.docs));
@@ -31,7 +46,7 @@ export const getBovine = () => {
 export const loadBovines = () => {
   return (dispatch, getState) => {
     dispatch(getBovine());
-    listenTo("type", "bovine", dispatch, getBovine);
+    listenTo("elementType", "bovine", dispatch, getBovine);
   };
 };
 
