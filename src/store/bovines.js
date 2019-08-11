@@ -18,7 +18,7 @@ export const addBovine = params => {
     const validation = validate(
       {
         name: "required,notempty",
-        type: "exists|bovineType",
+        type: "exists|bovineType,notempty",
         parent: "exists|bovine"
       },
       params

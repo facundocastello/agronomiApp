@@ -21,7 +21,7 @@ const validate = async (validation, element) => {
         const [, elementType] = rule.split("|");
 
         if (!element[elementKey] || element[elementKey] === "") {
-          validationElement.push("Id can't be empty");
+          // validationElement.push("Id can't be empty");
           continue;
         }
         const findObject =
@@ -39,11 +39,12 @@ const validate = async (validation, element) => {
 
       switch (rule) {
         case "required":
+          debugger;
           if (element[elementKey] === undefined)
             validationElement.push("Can't be undefined");
           break;
         case "notempty":
-          if (validator.isEmpty(element[elementKey]))
+          if (!element[elementKey] || validator.isEmpty(element[elementKey]))
             validationElement.push("Can't be empty");
           break;
         default:

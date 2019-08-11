@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-
-import { addBovine, deleteBovine, loadBovines } from "../store/bovines";
-import { loadBovineTypes } from "../store/bovineTypes";
 import { isArray } from "util";
-import Input from "./Input";
+
+import CustomForm from "./CustomForm";
+
+import { loadBovineTypes } from "../store/bovineTypes";
+import { addBovine, deleteBovine, loadBovines } from "../store/bovines";
 
 class BovinesComponent extends Component {
   state = {
@@ -65,64 +66,39 @@ class BovinesComponent extends Component {
     );
   };
 
-  onInputChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
-
-  handleAddBovine = () => {
-    let { bovineParent } = this.state;
-    // if (bovineParent === "") bovineParent = this.props.bovines.length > 0 ? this.props.bovines[0]._id : '';
-    this.props.addBovine({
-      name: this.state.bovineName,
-      type: this.state.bovineType,
-      parent: bovineParent
-    });
-  };
-
-  handleSelect = (event, elements) => {
-    this.setState({
-      [event.target.name]: elements[event.target.selectedIndex - 1]._id
-    });
-  };
-
   render() {
-    const { bovines, bovineTypes } = this.props;
+    const { addBovine, bovines, bovineTypes } = this.props;
 
     return (
       <div>
         <div className="d-flex justify-content-around">
           <div className="w-75 mt-4">
             <h1 className="bg-light">Bovines</h1>
-            <div className="row mb-5">
-              <Input
-                className="col-3"
-                title="Name"
-                name="bovineName"
-                onInputChange={this.onInputChange}
-              />
-              <Input
-                className="col-3"
-                elements={bovineTypes}
-                title="Type"
-                type="select"
-                name="bovineType"
-                onInputChange={this.handleSelect}
-              />
-              <Input
-                className="col-3"
-                elements={bovines}
-                title="Parent"
-                type="select"
-                name="bovineParent"
-                onInputChange={this.handleSelect}
-              />
-            </div>
-            <a
-              className="bg-warning p-2 rounded border"
-              onClick={this.handleAddBovine}
-            >
-              Add Bovine
-            </a>
+            <CustomForm
+              formName="add-bovine"
+              formButton="Add Bovine"
+              actionSubmit={addBovine}
+              formItems={{
+                name: {
+                  className: "col-3",
+                  title: "Name"
+                },
+                type: {
+                  className: "col-3",
+                  elements: bovineTypes,
+                  title: "Type",
+                  type: "select",
+                  indexName: "_id"
+                },
+                parent: {
+                  className: "col-3",
+                  elements: bovines,
+                  title: "Parent",
+                  type: "select",
+                  indexName: "_id"
+                }
+              }}
+            />
             <div className="row pt-4">{this.renderBovines()}</div>
           </div>
         </div>

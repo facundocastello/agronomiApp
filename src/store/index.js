@@ -1,13 +1,15 @@
 import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import bovines from "./bovines";
-import ui from "./ui";
 import bovineTypes from "./bovineTypes";
+import forms from "./forms";
+import ui from "./ui";
 
 const reducer = combineReducers({
   bovines: bovines,
+  bovineTypes: bovineTypes,
+  forms:forms,
   ui: ui,
-  bovineTypes: bovineTypes
 });
 
 const middleware = [thunk];

@@ -4,6 +4,7 @@ import classnames from "classnames";
 export default function Input({
   className,
   elements,
+  indexName,
   name,
   onInputChange,
   title,
@@ -16,14 +17,16 @@ export default function Input({
         <select
           style={style.fixedHeight}
           className="bg-white border rounded w-75"
-          onChange={(e) => onInputChange(e,elements)}
-          name={name}
           defaultValue={0}
+          indexname={indexName}
+          name={name}
+          type={type}
+          onChange={e => onInputChange(e, elements)}
         >
           <option />
           {elements &&
             elements.map((element, index) => (
-              <option id={element._id} key={`user-${index}`}>
+              <option id={element._id} key={`${name}-${index}`}>
                 {element.name}
               </option>
             ))}

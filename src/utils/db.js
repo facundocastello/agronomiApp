@@ -11,7 +11,6 @@ const remoteCouch = "http://admin:admin@192.168.0.27:5984/dbname";
 var opts = { live: true, retry: true };
 db.replicate.to(remoteCouch, opts);
 db.replicate.from(remoteCouch, opts);
-debugger;
 db.createIndex({
   index: { fields: ["elementType"] }
 });

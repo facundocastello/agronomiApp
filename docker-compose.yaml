@@ -1,8 +1,9 @@
 version: "3"
 
 services:
-  pouch:
+  agronomiapp:
     build: .
+    container_name: agronomiapp
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
