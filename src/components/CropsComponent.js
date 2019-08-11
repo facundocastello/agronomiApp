@@ -5,6 +5,7 @@ import { isArray } from "util";
 import CustomForm from "./CustomForm";
 
 import { addCrop, deleteCrop, loadCrops } from "../store/crops";
+import CustomMap from "./CustomMap";
 
 class CropsComponent extends Component {
   componentDidMount() {
@@ -68,6 +69,7 @@ class CropsComponent extends Component {
             <div className="row pt-4">{this.renderCrops()}</div>
           </div>
         </div>
+        <CustomMap />
       </div>
     );
   }
