@@ -8,14 +8,6 @@ import { loadBovineTypes } from "../store/bovineTypes";
 import { addBovine, deleteBovine, loadBovines } from "../store/bovines";
 
 class BovinesComponent extends Component {
-  state = {
-    bovineParent: "",
-    bovineName: "",
-    bovineType: "",
-    pouch: "",
-    users: []
-  };
-
   componentDidMount() {
     this.props.loadBovines();
     this.props.loadBovineTypes();

@@ -7,6 +7,9 @@ module.exports = {
     "webpack-dev-server/client?http://0.0.0.0:3000",
     "./src"
   ],
+  devServer: {
+    historyApiFallback: true
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index_bundle.js"

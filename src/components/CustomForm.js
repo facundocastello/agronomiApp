@@ -60,15 +60,13 @@ class CustomForm extends Component {
     const { formButton } = this.props;
     return (
       <div>
-        <div className="row mb-5">
-          {this.renderFormItems()}
-          <a
-            className="bg-warning p-2 rounded border"
-            onClick={this.handleSubmit}
-          >
-            {formButton}
-          </a>
-        </div>
+        <div className="row mb-5">{this.renderFormItems()}</div>
+        <a
+          className="bg-warning p-2 rounded border"
+          onClick={this.handleSubmit}
+        >
+          {formButton}
+        </a>
       </div>
     );
   }
