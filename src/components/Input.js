@@ -3,6 +3,7 @@ import classnames from "classnames";
 
 export default function Input({
   className,
+  defaultValue,
   elements,
   indexName,
   name,
@@ -17,7 +18,7 @@ export default function Input({
         <select
           style={style.fixedHeight}
           className="bg-white border rounded w-75"
-          defaultValue={0}
+          defaultValue={defaultValue ? defaultValue : 0}
           indexname={indexName}
           name={name}
           type={type}
@@ -38,6 +39,7 @@ export default function Input({
       renderedInput = (
         <input
           style={style.fixedHeight}
+          defaultValue={defaultValue ? defaultValue : ''}
           className="border rounded w-75"
           onChange={onInputChange}
           name={name}

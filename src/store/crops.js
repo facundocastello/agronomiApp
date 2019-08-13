@@ -1,13 +1,14 @@
-const RECEIVE_CROP = "/crop/RECEIVE_CROP";
+const RECEIVE_CROP = '/crop/RECEIVE_CROP';
 import db, {
   listenTo,
   getDataByType,
   deleteData,
   deleteDataRecursive,
-  addData
-} from "../utils/db";
-import validate from "../utils/validation";
-import { receiveErrors } from "./ui";
+  addData,
+  updateData
+} from '../utils/db';
+import validate from '../utils/validation';
+import { receiveErrors } from './ui';
 
 const initialState = {
   crops: []
@@ -17,8 +18,8 @@ export const addCrop = params => {
   return (dispatch, getState) => {
     const validation = validate(
       {
-        name: "required,notempty",
-        size: "notempty"
+        name: 'required,notempty',
+        size: 'notempty'
       },
       params
     ).then(res => {
@@ -26,7 +27,7 @@ export const addCrop = params => {
         dispatch(receiveErrors(res));
         return;
       }
-      addData("crop", params);
+      addData('crop', {...params,locations:[]});
     });
   };
 };
@@ -34,8 +35,8 @@ export const addCrop = params => {
 export const getCrop = () => {
   return (dispatch, getState) => {
     getDataByType({
-      elementType: "crop",
-      relations: [{ name: "parent" }]
+      elementType: 'crop',
+      relations: [{ name: 'parent' }]
     }).then(res => {
       dispatch(receiveCrop(res.docs));
     });
@@ -45,7 +46,14 @@ export const getCrop = () => {
 export const loadCrops = () => {
   return (dispatch, getState) => {
     dispatch(getCrop());
-    listenTo("elementType", "crop", dispatch, getCrop);
+    listenTo('elementType', 'crop', dispatch, getCrop);
+  };
+};
+
+export const updateCrop = (params, id) => {
+  
+  return (dispatch, getState) => {
+    updateData(params, id);
   };
 };
 

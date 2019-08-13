@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import classnames from "classnames";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
@@ -10,6 +11,15 @@ class CustomForm extends Component {
   // static propTypes = {
   //   prop: PropTypes
   // }
+
+  componentDidMount() {
+    const { formName, formItems } = this.props;
+    const items = Object.keys(formItems).forEach(element => {
+      this.props.receiveFormValue(formName, {
+        [element]: formItems[element].defaultValue
+      });
+    });
+  }
 
   handleSubmit = () => {
     const { forms, formName } = this.props;
@@ -49,6 +59,7 @@ class CustomForm extends Component {
         elements={formItems[item].elements}
         indexName={formItems[item].indexName}
         name={item}
+        defaultValue={formItems[item].defaultValue}
         title={formItems[item].title}
         type={formItems[item].type}
         onInputChange={this.onInputChange}
@@ -57,10 +68,10 @@ class CustomForm extends Component {
   };
 
   render() {
-    const { formButton } = this.props;
+    const { className, formButton } = this.props;
     return (
-      <div>
-        <div className="row mb-5">{this.renderFormItems()}</div>
+      <div className={classnames(className)}>
+        <div className="row mb-3">{this.renderFormItems()}</div>
         <a
           className="bg-warning p-2 rounded border"
           onClick={this.handleSubmit}

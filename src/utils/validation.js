@@ -39,7 +39,6 @@ const validate = async (validation, element) => {
 
       switch (rule) {
         case "required":
-          debugger;
           if (element[elementKey] === undefined)
             validationElement.push("Can't be undefined");
           break;
