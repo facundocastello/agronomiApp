@@ -1,11 +1,12 @@
-import React, { Component } from "react";
-import classnames from "classnames";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import classnames from 'classnames';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import Input from "./Input";
+import Input from './Input';
 
-import { receiveFormValue } from "../store/forms";
+import { receiveFormValue } from '../store/forms';
+import Button from './Button';
 
 class CustomForm extends Component {
   // static propTypes = {
@@ -30,14 +31,14 @@ class CustomForm extends Component {
     const { formItems, formName } = this.props;
 
     switch (event.target.type) {
-      case "select-one":
+      case 'select-one':
         const elements = formItems[event.target.name].elements;
         this.props.receiveFormValue(formName, {
           [event.target.name]:
             event.target.selectedIndex === 0
-              ? ""
+              ? ''
               : elements[event.target.selectedIndex - 1][
-                  event.target.getAttribute("indexname")
+                  event.target.getAttribute('indexname')
                 ]
         });
         break;
@@ -68,16 +69,19 @@ class CustomForm extends Component {
   };
 
   render() {
-    const { className, formButton } = this.props;
+    const { className, inputsClass, formButton } = this.props;
     return (
       <div className={classnames(className)}>
-        <div className="row mb-3">{this.renderFormItems()}</div>
-        <a
-          className="bg-warning p-2 rounded border"
-          onClick={this.handleSubmit}
-        >
-          {formButton}
-        </a>
+        <div className={classnames(inputsClass, 'row mb-3')}>
+          {this.renderFormItems()}
+        </div>
+        {formButton && (
+          <div className='d-flex justify-content-center'>
+            <Button className='bg-warning' clickedButton={this.handleSubmit}>
+              {formButton}
+            </Button>
+          </div>
+        )}
       </div>
     );
   }

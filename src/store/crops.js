@@ -18,8 +18,7 @@ export const addCrop = params => {
   return (dispatch, getState) => {
     const validation = validate(
       {
-        name: 'required,notempty',
-        size: 'notempty'
+        name: 'required,notempty'
       },
       params
     ).then(res => {
@@ -27,7 +26,7 @@ export const addCrop = params => {
         dispatch(receiveErrors(res));
         return;
       }
-      addData('crop', {...params,locations:[]});
+      addData('crop', { ...params, size: '0', locations: [] });
     });
   };
 };
@@ -36,7 +35,7 @@ export const getCrop = () => {
   return (dispatch, getState) => {
     getDataByType({
       elementType: 'crop',
-      relations: [{ name: 'parent' }]
+      relations: [{ name: 'histories' }]
     }).then(res => {
       dispatch(receiveCrop(res.docs));
     });
@@ -51,7 +50,6 @@ export const loadCrops = () => {
 };
 
 export const updateCrop = (params, id) => {
-  
   return (dispatch, getState) => {
     updateData(params, id);
   };

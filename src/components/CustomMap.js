@@ -16,7 +16,7 @@ class CustomMap extends Component {
     const newProps = this.props;
     if (prevProps.displayIndex !== newProps.displayIndex) {
       const polygons = [];
-      
+
       newProps.locations.map(location => {
         var polygon = new this.state.google.maps.Polygon({
           draggable: true,
@@ -93,21 +93,15 @@ class CustomMap extends Component {
           options={function(maps) {
             return { mapTypeId: 'satellite' };
           }}
-          // draggable={draggable}
           center={{
             lat: center.lat,
             lng: center.lng
           }}
-          // defaultCenter={{
-          //   lat: center.lat,
-          //   lng: center.lng
-          // }}
-          // onChildMouseDown={this.dragChild}
-          // onChildMouseUp={this.stopDrag}
-          // onChildMouseMove={this.dragChild}
-          // className="CropMap"
           zoom={zoom}
-          bootstrapURLKeys={{ libraries: 'drawing' }}
+          bootstrapURLKeys={{
+            libraries: 'drawing',
+            key: 'AIzaSyAEm5dXZMOHGpt17QltwHiBMih3dOgk1Tg'
+          }}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={this.handleGoogleMapApi}
         />

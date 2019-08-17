@@ -1,5 +1,5 @@
-import React from "react";
-import classnames from "classnames";
+import React from 'react';
+import classnames from 'classnames';
 
 export default function Input({
   className,
@@ -11,13 +11,13 @@ export default function Input({
   title,
   type
 }) {
-  var renderedInput = "";
+  var renderedInput = '';
   switch (type) {
-    case "select":
+    case 'select':
       renderedInput = (
         <select
           style={style.fixedHeight}
-          className="bg-white border rounded w-75"
+          className='bg-white border rounded w-75'
           defaultValue={defaultValue ? defaultValue : 0}
           indexname={indexName}
           name={name}
@@ -27,7 +27,7 @@ export default function Input({
           <option />
           {elements &&
             elements.map((element, index) => (
-              <option id={element._id} key={`${name}-${index}`}>
+              <option id={element[indexName]} key={`${name}-${index}`}>
                 {element.name}
               </option>
             ))}
@@ -40,7 +40,7 @@ export default function Input({
         <input
           style={style.fixedHeight}
           defaultValue={defaultValue ? defaultValue : ''}
-          className="border rounded w-75"
+          className='border rounded w-75'
           onChange={onInputChange}
           name={name}
           type={type}
@@ -51,17 +51,17 @@ export default function Input({
   return (
     <div
       className={classnames(
-        className ? className : "align-items-center d-flex flex-column p-3"
+        className ? className : 'align-items-center d-flex flex-column p-3'
       )}
     >
-      {title && <div className="mr-2">{title}</div>}
-      <div className="w-100">{renderedInput}</div>
+      {title && <div className='mr-2'>{title}</div>}
+      <div className='w-100'>{renderedInput}</div>
     </div>
   );
 }
 
 const style = {
   fixedHeight: {
-    height: "30px"
+    height: '30px'
   }
 };
