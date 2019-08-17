@@ -82,6 +82,7 @@ export const getDataByType = ({
         elementType: elementType,
         ...filters
       },
+      sort: ['_id'],
       skip: page ? page * perPage : 0,
       limit: perPage ? perPage : 12
     })

@@ -14,13 +14,24 @@ import {
 import { loadBovineTypes } from '../store/bovineTypes';
 import { loadBatches } from '../store/batches';
 import { ADD_BOVINE_FORM_ITEMS } from '../utils/constants';
+import QuestionModal from '../components/QuestionModal';
 
 class BovinesPage extends Component {
+  state = {
+    deleteBovineId: undefined
+  };
+
   componentDidMount() {
     this.props.loadBovines();
     this.props.loadBovineTypes();
     this.props.loadBatches();
   }
+
+  handleDeleteClick = _id => {
+    this.setState({
+      deleteBovineId: _id
+    });
+  };
 
   renderBovines = () => {
     const { bovines, deleteBovine } = this.props;
@@ -30,7 +41,7 @@ class BovinesPage extends Component {
         <div className='d-flex col-12 col-md-6 col-lg-3' key={`user-${index}`}>
           <BovineCard
             {...bovine}
-            deleteBovine={deleteBovine}
+            deleteBovine={this.handleDeleteClick}
             type={bovine.type[0].name}
           />
         </div>
@@ -40,6 +51,7 @@ class BovinesPage extends Component {
 
   render() {
     const { addBovine, batches, bovines, bovineTypes } = this.props;
+    const { deleteBovineId } = this.state;
 
     return (
       <div>
@@ -62,6 +74,17 @@ class BovinesPage extends Component {
             </div>
           </div>
         </div>
+        <QuestionModal
+          active={deleteBovineId}
+          acceptAction={() => {
+            this.props.deleteBovine(deleteBovineId);
+            this.setState({ deleteBovineId: undefined });
+          }}
+          denyAction={() => this.setState({ deleteBovineId: undefined })}
+        >
+          Are you sure you want to delte this bovine? It'll remove the relation
+          with it's historials
+        </QuestionModal>
       </div>
     );
   }

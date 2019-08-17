@@ -18,8 +18,9 @@ export const addCropHistory = params => {
   return (dispatch, getState) => {
     return validate(
       {
-        description: 'required,notempty',
-        type: 'required,notempty'
+        description: 'notempty',
+        type: 'notempty',
+        cultive: 'notempty',
       },
       params
     ).then(res => {

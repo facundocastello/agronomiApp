@@ -9,6 +9,9 @@ import BatchesPage from './pages/BatchesPage';
 import store from './store';
 import './App.scss';
 import ToastManager from './components/ToastManager';
+import BackDrop from './components/BackDrop';
+import Spinner from './components/Spinner';
+import QuestionModal from './components/QuestionModal';
 
 class App extends Component {
   render() {
@@ -16,6 +19,8 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className='App' style={{ minHeight: '1100px' }}>
+            <BackDrop />
+            <Spinner />
             <div className='align-items-center d-flex justify-content-center justify-content-md-between px-5 w-100 bg-green text-white'>
               <h1 className='mb-0 d-none d-md-block'>Header</h1>
               <div className='d-flex font-weight-bold w-50 justify-content-around'>

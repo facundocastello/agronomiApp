@@ -10,7 +10,7 @@ export default function CropCard({
 }) {
   return (
     <div>
-      <div className='pb-3 bg-white border rounded shadow w-100'>
+      <div className='d-flex flex-column justify-content-between pb-3 bg-white border rounded shadow w-100'>
         <div className='bg-green font-weight-bold px-3 py-1 rounded-top'>
           {name}
         </div>
@@ -37,8 +37,8 @@ export default function CropCard({
             <div className='font-weight-bold w-100 border'>type</div>
             <div className='font-weight-bold w-100 border'>cultive</div>
           </div>
-          {histories.map(history => (
-            <div className='d-flex'>
+          {histories.map((history, index) => (
+            <div key={`history-${index}`} className='d-flex'>
               <div className='w-100 border'>{history.description}</div>
               <div className='w-100 border'>{history.type}</div>
               <div className='w-100 border'>{history.cultive}</div>
