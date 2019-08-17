@@ -18,7 +18,7 @@ export const addCrop = params => {
   return (dispatch, getState) => {
     const validation = validate(
       {
-        name: 'required,notempty'
+        name: 'unique|crop,required,notempty'
       },
       params
     ).then(res => {

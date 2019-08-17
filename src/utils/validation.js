@@ -1,5 +1,5 @@
-import validator from "validator";
-import db from "./db";
+import validator from 'validator';
+import db from './db';
 
 const validate = async (validation, element) => {
   const validations = {};
@@ -13,36 +13,30 @@ const validate = async (validation, element) => {
     const elementKey = validationKeys[elementIndex];
     const validationElement = [];
     const rules = validation[elementKey];
-    const rulesArray = rules.split(",");
+    const rulesArray = rules.split(',');
     for (let ruleIndex = 0; ruleIndex < rulesArray.length; ruleIndex++) {
       const rule = rulesArray[ruleIndex];
-      //SPECIAL RULE THAT VERIFY IF ELEMENT EXISTS ON DB
-      if (rule.includes("exists")) {
-        const [, elementType] = rule.split("|");
 
-        if (!element[elementKey] || element[elementKey] === "") {
-          // validationElement.push("Id can't be empty");
-          continue;
+      if (rule.includes('exists')) {
+        const exists = await validateIfExists(rule, element, elementKey);
+        if (exists !== true) {
+          validationElement.push(exists);
         }
-        const findObject =
-          elementType && elementType !== ""
-            ? { _id: element[elementKey], elementType: elementType }
-            : { _id: element[elementKey] };
-        const result = await db.find({
-          selector: findObject
-        });
-        if (result.docs.length === 0) {
-          validationElement.push("Not found");
-          continue;
+      }
+
+      if (rule.includes('unique')) {
+        const isUnique = await validateIfIsUnique(rule, element, elementKey);
+        if (isUnique !== true) {
+          validationElement.push(isUnique);
         }
       }
 
       switch (rule) {
-        case "required":
+        case 'required':
           if (element[elementKey] === undefined)
             validationElement.push("Can't be undefined");
           break;
-        case "notempty":
+        case 'notempty':
           if (!element[elementKey] || validator.isEmpty(element[elementKey]))
             validationElement.push("Can't be empty");
           break;
@@ -54,6 +48,42 @@ const validate = async (validation, element) => {
   }
 
   return Promise.resolve(validations);
+};
+
+const validateIfExists = async (rule, element, elementKey) => {
+  const [, elementType] = rule.split('|');
+
+  if (!element[elementKey] || element[elementKey] === '') {
+    return true;
+  }
+  const findObject =
+    elementType && elementType !== ''
+      ? { _id: element[elementKey], elementType: elementType }
+      : { _id: element[elementKey] };
+  const result = await db.find({
+    selector: findObject
+  });
+  if (result.docs.length === 0) {
+    return 'Record not found';
+  }
+  return true;
+};
+
+const validateIfIsUnique = async (rule, element, elementKey) => {
+  const [, elementType] = rule.split('|');
+
+  if (!element[elementKey] || element[elementKey] === '') {
+    return true;
+  }
+  if (!elementType) return 'Must define element type';
+
+  const result = await db.find({
+    selector: { [elementKey]: element[elementKey], elementType: elementType }
+  });
+  if (result.docs.length > 0) {
+    return 'Record already exists';
+  }
+  return true;
 };
 
 export default validate;
