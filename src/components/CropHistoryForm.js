@@ -28,18 +28,15 @@ class CropHistoryForm extends Component {
           formButton='Add History'
           formItems={{
             description: {
-              className: 'col-3',
               title: 'Description'
             },
             type: {
-              className: 'col-3',
               elements: [{ name: 'sow' }, { name: 'harvest' }],
               title: 'Type',
               type: 'select',
               indexName: 'name'
             },
             cultive: {
-              className: 'col-3',
               elements: [{ name: 'soy' }, { name: 'wheat' }],
               title: 'Cultive',
               type: 'select',

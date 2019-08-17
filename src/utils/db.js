@@ -1,10 +1,10 @@
-import { isArray } from "util";
+import { isArray } from 'util';
 
-const PouchDB = require("pouchdb").default;
-PouchDB.plugin(require("pouchdb-find").default);
+const PouchDB = require('pouchdb').default;
+PouchDB.plugin(require('pouchdb-find').default);
 // PouchDB.plugin(require('pouchdb-debug'));
-const db = new PouchDB("dbname");
-const remoteCouch = "http://admin:admin@localhost:5984/dbname";
+const db = new PouchDB('dbname');
+const remoteCouch = 'http://admin:admin@localhost:5984/dbname';
 
 // PouchDB.debug.enable('*');
 
@@ -12,7 +12,7 @@ var opts = { live: true, retry: true };
 db.replicate.to(remoteCouch, opts);
 db.replicate.from(remoteCouch, opts);
 db.createIndex({
-  index: { fields: ["elementType"] }
+  index: { fields: ['elementType'] }
 });
 
 export default db;
@@ -58,25 +58,32 @@ export const deleteDataRecursive = filter => {
 
 export const listenTo = (filter, value, dispatch, action) => {
   db.changes({
-    since: "now",
+    since: 'now',
     live: true,
     include_docs: true,
     filter: doc => {
       return doc[filter] === value || doc._deleted;
     }
-  }).on("change", res => {
-    console.log("change");
+  }).on('change', res => {
     dispatch(action(res));
   });
 };
 
-export const getDataByType = ({ elementType, filters, relations }) => {
+export const getDataByType = ({
+  elementType,
+  filters,
+  relations,
+  perPage,
+  page
+}) => {
   return db
     .find({
       selector: {
         elementType: elementType,
         ...filters
-      }
+      },
+      skip: page ? page * perPage : 0,
+      limit: perPage ? perPage : 12
     })
     .then(async res => {
       if (relations && relations.length > 0) {
@@ -107,7 +114,7 @@ export const getDataById = ({ id, relations }) => {
       return Promise.resolve(res);
     })
     .catch(err => {
-      return Promise.resolve("");
+      return Promise.resolve('');
     });
 };
 
@@ -123,7 +130,7 @@ export const iterateRelationsRecursive = async (
   ) {
     const relation = relations[indexRelations];
     let resRelations = [];
-    if (res[relation.name] && res[relation.name] !== "") {
+    if (res[relation.name] && res[relation.name] !== '') {
       //If have multiple childs, get all of them
       if (!isArray(res[relation.name])) {
         res[relation.name] = [res[relation.name]];

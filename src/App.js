@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Nav, NavLink } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import BovinesComponent from './components/BovinesComponent';
-import CropsComponent from './components/CropsComponent';
+import BovinesComponent from './pages/BovinesComponent';
+import CropsComponent from './pages/CropsComponent';
 
 import store from './store';
-import './App.css';
-import Errors from './components/Errors';
+import './App.scss';
+import ToastManager from './components/ToastManager';
 
 class App extends Component {
   render() {
@@ -37,7 +37,7 @@ class App extends Component {
               </div>
               <div>Users</div>
             </div>
-            <Errors />
+            <ToastManager />
             <Route exact path='/' component={BovinesComponent} />
             <Route path='/crops' component={CropsComponent} />
           </div>

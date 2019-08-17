@@ -11,7 +11,7 @@ export default function BovineCard({
   type
 }) {
   return (
-    <div className='border rounded m-3 w-100'>
+    <div className='bg-white border rounded m-3 w-100'>
       <div className='bg-green font-weight-bold px-3 py-1 rounded-top'>
         {name} - {caravane} - {internCaravane}
       </div>

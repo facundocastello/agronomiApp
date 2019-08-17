@@ -17,9 +17,9 @@ export const addBovine = params => {
   return (dispatch, getState) => {
     const validation = validate(
       {
-        caravane: 'notempty',
-        internCaravane: 'notempty',
-        name: 'notempty',
+        caravane: 'unique|bovine,notempty',
+        internCaravane: 'unique|bovine,notempty',
+        name: 'unique|bovine,notempty',
         type: 'exists|bovineType,notempty',
         parent: 'exists|bovine'
       },
@@ -34,11 +34,13 @@ export const addBovine = params => {
   };
 };
 
-export const getBovine = () => {
+export const getBovine = (page, perPage) => {
   return (dispatch, getState) => {
     getDataByType({
       elementType: 'bovine',
-      relations: [{ name: 'parent' }, { name: 'type' }]
+      relations: [{ name: 'parent' }, { name: 'type' }],
+      page: page,
+      perPage: perPage
     }).then(res => {
       dispatch(receiveBovine(res.docs));
     });

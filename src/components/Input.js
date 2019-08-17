@@ -54,7 +54,7 @@ export default function Input({
   return (
     <div
       className={classnames(
-        className ? className : 'align-items-center d-flex flex-column p-3'
+        className ? className : 'align-items-center d-flex flex-column p-3 w-100'
       )}
     >
       {title && <div className='mr-2'>{title}</div>}

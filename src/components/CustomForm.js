@@ -67,7 +67,7 @@ class CustomForm extends Component {
   render() {
     const { className, inputsClass, formButton } = this.props;
     return (
-      <div className={classnames(className)}>
+      <div className={classnames(className? className : 'col-12 col-md-6 col-lg-3')}>
         <div className={classnames(inputsClass, 'row mb-3')}>
           {this.renderFormItems()}
         </div>

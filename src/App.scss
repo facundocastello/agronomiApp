@@ -33,12 +33,15 @@
   border: 1px solid red;
 }
 
+$green: #03815d;
+$dodgerblue: #4ab3f4;
+
 .bg-green {
-  background-color: #03815d !important;
+  background-color: $green !important;
 }
 
 .text-dodgerblue {
-  color: #4ab3f4 !important;
+  color: $dodgerblue !important;
 }
 
 /* Column Resize Effect */
@@ -49,4 +52,40 @@
   -moz-transition: all 0.6s ease-in-out;
   -o-transition: all 0.6s ease-in-out;
   transition: all 0.6s ease-in-out;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  .previous.disabled {
+    display: none;
+  }
+  .next.disabled {
+    display: none;
+  }
+  li {
+    a {
+      color: $dodgerblue;
+    }
+    margin: 3px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  li:not(.next):not(.previous):not(.break-me) {
+    border-radius: 100px;
+    width: 30px;
+    height: 30px;
+    background-color: $green;
+    a {
+      color: white;
+    }
+  }
+  li.active {
+    a {
+      color: $dodgerblue !important;
+    }
+  }
 }

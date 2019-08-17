@@ -8,7 +8,7 @@ import db, {
   updateData
 } from '../utils/db';
 import validate from '../utils/validation';
-import { receiveErrors } from './ui';
+import { receiveErrors, receiveSuccessMessage } from './ui';
 
 const initialState = {
   crops: []
@@ -16,7 +16,7 @@ const initialState = {
 
 export const addCrop = params => {
   return (dispatch, getState) => {
-    const validation = validate(
+    return validate(
       {
         name: 'unique|crop,required,notempty'
       },
@@ -26,16 +26,20 @@ export const addCrop = params => {
         dispatch(receiveErrors(res));
         return;
       }
-      addData('crop', { ...params, size: '0', locations: [] });
+      addData('crop', { ...params, size: '0', locations: [] }).then(res => {
+        if (res.ok) dispatch(receiveSuccessMessage('Crop added'));
+      });
     });
   };
 };
 
-export const getCrop = () => {
+export const getCrop = (page, perPage) => {
   return (dispatch, getState) => {
     getDataByType({
       elementType: 'crop',
-      relations: [{ name: 'histories' }]
+      relations: [{ name: 'histories' }],
+      page: page,
+      perPage: perPage
     }).then(res => {
       dispatch(receiveCrop(res.docs));
     });

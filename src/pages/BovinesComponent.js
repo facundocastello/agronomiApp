@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import CustomForm from './CustomForm';
+import CustomForm from '../components/CustomForm';
 
 import { loadBovineTypes } from '../store/bovineTypes';
-import { addBovine, deleteBovine, loadBovines } from '../store/bovines';
-import BovineCard from './BovineCard';
+import {
+  addBovine,
+  deleteBovine,
+  loadBovines,
+  getBovine
+} from '../store/bovines';
+import BovineCard from '../components/BovineCard';
+import Pagination from '../components/Pagination';
 
 class BovinesComponent extends Component {
   componentDidMount() {
@@ -18,7 +24,7 @@ class BovinesComponent extends Component {
     return (
       bovines &&
       bovines.map((bovine, index) => (
-        <div className='d-flex col-3' key={`user-${index}`}>
+        <div className='d-flex col-12 col-md-6 col-lg-3' key={`user-${index}`}>
           <BovineCard
             {...bovine}
             deleteBovine={deleteBovine}
@@ -36,7 +42,7 @@ class BovinesComponent extends Component {
       <div>
         <div className='d-flex justify-content-around'>
           <div className='w-75 mt-4'>
-            <h1 className='bg-light'>Bovines</h1>
+            <h1>Bovines</h1>
             <CustomForm
               formName='add-bovine'
               formButton='Add Bovine'
@@ -71,7 +77,14 @@ class BovinesComponent extends Component {
                 }
               }}
             />
-            <div className='row pt-4'>{this.renderBovines()}</div>
+            <div className='row py-4 mt-4 bg-light'>
+              <Pagination
+                contentClass='row pt-4'
+                handlePageChange={this.props.getBovine}
+              >
+                {this.renderBovines()}
+              </Pagination>
+            </div>
           </div>
         </div>
       </div>
@@ -87,6 +100,7 @@ const mapStateToProps = ({ bovines, bovineTypes }) => ({
 const mapDispatchToProps = {
   addBovine,
   deleteBovine,
+  getBovine,
   loadBovines,
   loadBovineTypes
 };
