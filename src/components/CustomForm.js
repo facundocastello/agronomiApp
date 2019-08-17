@@ -33,6 +33,7 @@ class CustomForm extends Component {
     switch (event.target.type) {
       case 'select-one':
         const elements = formItems[event.target.name].elements;
+        debugger;
         this.props.receiveFormValue(formName, {
           [event.target.name]:
             event.target.selectedIndex === 0
@@ -56,14 +57,9 @@ class CustomForm extends Component {
     return Object.keys(formItems).map((item, index) => (
       <Input
         key={`${formName}-${index}`}
-        className={formItems[item].className}
-        elements={formItems[item].elements}
-        indexName={formItems[item].indexName}
         name={item}
-        defaultValue={formItems[item].defaultValue}
-        title={formItems[item].title}
-        type={formItems[item].type}
         onInputChange={this.onInputChange}
+        {...formItems[item]}
       />
     ));
   };

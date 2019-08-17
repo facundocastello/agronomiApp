@@ -4,6 +4,7 @@ import classnames from 'classnames';
 export default function Input({
   className,
   defaultValue,
+  emptyElement,
   elements,
   indexName,
   name,
@@ -24,7 +25,9 @@ export default function Input({
           type={type}
           onChange={e => onInputChange(e, elements)}
         >
-          <option />
+          <option disabled={emptyElement ? false : true} selected value>
+            {emptyElement ? emptyElement.name : 'Select an option'}
+          </option>
           {elements &&
             elements.map((element, index) => (
               <option id={element[indexName]} key={`${name}-${index}`}>

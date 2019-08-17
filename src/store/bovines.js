@@ -1,13 +1,13 @@
-const RECEIVE_BOVINE = "/bovine/RECEIVE_BOVINE";
+const RECEIVE_BOVINE = '/bovine/RECEIVE_BOVINE';
 import db, {
   listenTo,
   getDataByType,
   deleteData,
   deleteDataRecursive,
   addData
-} from "../utils/db";
-import validate from "../utils/validation";
-import { receiveErrors } from "./ui";
+} from '../utils/db';
+import validate from '../utils/validation';
+import { receiveErrors } from './ui';
 
 const initialState = {
   bovines: []
@@ -17,9 +17,11 @@ export const addBovine = params => {
   return (dispatch, getState) => {
     const validation = validate(
       {
-        name: "required,notempty",
-        type: "exists|bovineType,notempty",
-        parent: "exists|bovine"
+        caravane: 'notempty',
+        internCaravane: 'notempty',
+        name: 'notempty',
+        type: 'exists|bovineType,notempty',
+        parent: 'exists|bovine'
       },
       params
     ).then(res => {
@@ -27,7 +29,7 @@ export const addBovine = params => {
         dispatch(receiveErrors(res));
         return;
       }
-      addData("bovine", params);
+      addData('bovine', params);
     });
   };
 };
@@ -35,8 +37,8 @@ export const addBovine = params => {
 export const getBovine = () => {
   return (dispatch, getState) => {
     getDataByType({
-      elementType: "bovine",
-      relations: [{ name: "parent" }]
+      elementType: 'bovine',
+      relations: [{ name: 'parent' }, { name: 'type' }]
     }).then(res => {
       dispatch(receiveBovine(res.docs));
     });
@@ -46,7 +48,7 @@ export const getBovine = () => {
 export const loadBovines = () => {
   return (dispatch, getState) => {
     dispatch(getBovine());
-    listenTo("elementType", "bovine", dispatch, getBovine);
+    listenTo('elementType', 'bovine', dispatch, getBovine);
   };
 };
 

@@ -84,7 +84,7 @@ class CustomMap extends Component {
     return (
       <div
         className={classnames(
-          'w-100 flex-column align-items-center',
+          'align-items-center border flex-column shadow w-100',
           displayMap ? 'd-flex' : 'd-none'
         )}
         style={{ height: '600px' }}

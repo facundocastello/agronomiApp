@@ -117,7 +117,7 @@ class CropsComponent extends Component {
       <div>
         <div className="d-flex justify-content-around">
           <div className="w-75 mt-4">
-            <h1 className="bg-light">Crops</h1>
+            <h1>Crops</h1>
             <CustomForm
               actionSubmit={addCrop}
               inputsClass="justify-content-center mb-2"
@@ -130,7 +130,7 @@ class CropsComponent extends Component {
                 }
               }}
             />
-            <div className="row mt-4">
+            <div className="row py-4 mt-4 bg-light">
               <div
                 className={classnames(
                   displayMap ? "col-12 col-lg-6" : "col-12"

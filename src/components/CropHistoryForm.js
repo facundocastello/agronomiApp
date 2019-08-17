@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import CustomForm from "./CustomForm";
+import CustomForm from './CustomForm';
 
-import { addCropHistory } from "../store/cropHistories";
-import { updateCrop } from "../store/crops";
+import { addCropHistory } from '../store/cropHistories';
+import { updateCrop } from '../store/crops';
 
 class CropHistoryForm extends Component {
   handleAddCropHistory = params => {
@@ -28,22 +28,22 @@ class CropHistoryForm extends Component {
           formButton='Add History'
           formItems={{
             description: {
-              className: "col-3",
-              title: "Name"
+              className: 'col-3',
+              title: 'Description'
             },
             type: {
-              className: "col-3",
-              elements: [{ name: "sow" }],
-              title: "Type",
-              type: "select",
-              indexName: "name"
+              className: 'col-3',
+              elements: [{ name: 'sow' }, { name: 'harvest' }],
+              title: 'Type',
+              type: 'select',
+              indexName: 'name'
             },
             cultive: {
-              className: "col-3",
-              elements: [{ name: "soy" }],
-              title: "Cultive",
-              type: "select",
-              indexName: "name"
+              className: 'col-3',
+              elements: [{ name: 'soy' }, { name: 'wheat' }],
+              title: 'Cultive',
+              type: 'select',
+              indexName: 'name'
             }
           }}
         />
