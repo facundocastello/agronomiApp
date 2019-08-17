@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Nav, NavLink } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import BovinesComponent from './pages/BovinesComponent';
-import CropsComponent from './pages/CropsComponent';
+import BovinesPage from './pages/BovinesPage';
+import CropsPage from './pages/CropsPage';
+import BatchesPage from './pages/BatchesPage';
 
 import store from './store';
 import './App.scss';
@@ -15,8 +16,8 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className='App' style={{ minHeight: '1100px' }}>
-            <div className='align-items-center d-flex justify-content-between px-5 w-100 bg-green text-white'>
-              <h1 className='mb-0'>Header</h1>
+            <div className='align-items-center d-flex justify-content-center justify-content-md-between px-5 w-100 bg-green text-white'>
+              <h1 className='mb-0 d-none d-md-block'>Header</h1>
               <div className='d-flex font-weight-bold w-50 justify-content-around'>
                 <NavLink
                   className='text-white'
@@ -30,16 +31,25 @@ class App extends Component {
                   className='text-white'
                   activeClassName='text-dodgerblue'
                   exact
+                  to='/batches'
+                >
+                  Batches
+                </NavLink>
+                <NavLink
+                  className='text-white'
+                  activeClassName='text-dodgerblue'
+                  exact
                   to='/crops'
                 >
                   Crops
                 </NavLink>
               </div>
-              <div>Users</div>
+              <div className='d-none d-md-block'>Users</div>
             </div>
             <ToastManager />
-            <Route exact path='/' component={BovinesComponent} />
-            <Route path='/crops' component={CropsComponent} />
+            <Route exact path='/' component={BovinesPage} />
+            <Route path='/batches' component={BatchesPage} />
+            <Route path='/crops' component={CropsPage} />
           </div>
         </Router>
       </Provider>

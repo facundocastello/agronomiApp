@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 
+import Button from '../components/Button';
 import CustomForm from '../components/CustomForm';
 import CustomMap from '../components/CustomMap';
 import CropCard from '../components/CropCard';
+import CropHistoryForm from '../components/CropHistoryForm';
+import Pagination from '../components/Pagination';
 
 import {
   addCrop,
@@ -13,11 +16,9 @@ import {
   loadCrops,
   updateCrop
 } from '../store/crops';
-import Button from '../components/Button';
-import CropHistoryForm from '../components/CropHistoryForm';
-import Pagination from '../components/Pagination';
+import { ADD_CROP_FORM_ITEMS } from '../utils/constants';
 
-class CropsComponent extends Component {
+class CropsPage extends Component {
   state = {
     displayMap: false,
     displayIndex: -1,
@@ -130,11 +131,7 @@ class CropsComponent extends Component {
               inputsClass='justify-content-center mb-2'
               formName='add-crop'
               formButton='Add Crop'
-              formItems={{
-                name: {
-                  title: 'Name'
-                }
-              }}
+              formItems={ADD_CROP_FORM_ITEMS}
             />
             <div className='row py-4 mt-4 bg-light'>
               <div
@@ -144,7 +141,7 @@ class CropsComponent extends Component {
               >
                 <Pagination
                   contentClass='row pt-4'
-                  displayPagination={!displayMap}
+                  hidePagination={displayMap}
                   handlePageChange={this.props.getCrop}
                 >
                   {this.renderCrops()}
@@ -191,4 +188,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CropsComponent);
+)(CropsPage);

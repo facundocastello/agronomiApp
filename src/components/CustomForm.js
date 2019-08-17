@@ -33,7 +33,6 @@ class CustomForm extends Component {
     switch (event.target.type) {
       case 'select-one':
         const elements = formItems[event.target.name].elements;
-        debugger;
         this.props.receiveFormValue(formName, {
           [event.target.name]:
             event.target.selectedIndex === 0
@@ -59,6 +58,7 @@ class CustomForm extends Component {
         key={`${formName}-${index}`}
         name={item}
         onInputChange={this.onInputChange}
+        className='col-12 col-md-6 col-lg-3'
         {...formItems[item]}
       />
     ));
@@ -67,7 +67,7 @@ class CustomForm extends Component {
   render() {
     const { className, inputsClass, formButton } = this.props;
     return (
-      <div className={classnames(className? className : 'col-12 col-md-6 col-lg-3')}>
+      <div className={classnames(className && className)}>
         <div className={classnames(inputsClass, 'row mb-3')}>
           {this.renderFormItems()}
         </div>

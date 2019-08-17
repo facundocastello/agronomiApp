@@ -5,12 +5,12 @@ import ReactPaginate from 'react-paginate';
 export default function Pagination({
   children,
   contentClass,
-  displayPagination,
+  hidePagination,
   pageCount,
   handlePageChange
 }) {
   return (
-    <div>
+    <div className='w-100'>
       <div className={contentClass}>{children}</div>
 
       <ReactPaginate
@@ -25,7 +25,7 @@ export default function Pagination({
         onPageChange={pages => handlePageChange(pages.selected, 12)}
         containerClassName={classnames(
           'pagination',
-          !displayPagination && 'd-none'
+          hidePagination && 'd-none'
         )}
         subContainerClassName={'pages pagination'}
         activeClassName={'active'}

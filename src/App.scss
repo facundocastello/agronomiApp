@@ -36,6 +36,10 @@
 $green: #03815d;
 $dodgerblue: #4ab3f4;
 
+.bg-opaque {
+  opacity: 0.85;
+}
+
 .bg-green {
   background-color: $green !important;
 }
@@ -88,4 +92,13 @@ $dodgerblue: #4ab3f4;
       color: $dodgerblue !important;
     }
   }
+}
+
+select option:disabled {
+  color: gray;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
 }

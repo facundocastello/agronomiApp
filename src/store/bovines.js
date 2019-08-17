@@ -20,6 +20,7 @@ export const addBovine = params => {
         caravane: 'unique|bovine,notempty',
         internCaravane: 'unique|bovine,notempty',
         name: 'unique|bovine,notempty',
+        batch: 'exists|batch,notempty',
         type: 'exists|bovineType,notempty',
         parent: 'exists|bovine'
       },
@@ -38,7 +39,7 @@ export const getBovine = (page, perPage) => {
   return (dispatch, getState) => {
     getDataByType({
       elementType: 'bovine',
-      relations: [{ name: 'parent' }, { name: 'type' }],
+      relations: [{ name: 'batch' }, { name: 'parent' }, { name: 'type' }],
       page: page,
       perPage: perPage
     }).then(res => {

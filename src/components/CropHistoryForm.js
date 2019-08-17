@@ -5,6 +5,7 @@ import CustomForm from './CustomForm';
 
 import { addCropHistory } from '../store/cropHistories';
 import { updateCrop } from '../store/crops';
+import { ADD_CROP_HISTORY_FORM_ITEMS } from '../utils/constants';
 
 class CropHistoryForm extends Component {
   handleAddCropHistory = params => {
@@ -26,23 +27,7 @@ class CropHistoryForm extends Component {
           inputsClass='justify-content-center mt-1'
           formName='add-crop-history'
           formButton='Add History'
-          formItems={{
-            description: {
-              title: 'Description'
-            },
-            type: {
-              elements: [{ name: 'sow' }, { name: 'harvest' }],
-              title: 'Type',
-              type: 'select',
-              indexName: 'name'
-            },
-            cultive: {
-              elements: [{ name: 'soy' }, { name: 'wheat' }],
-              title: 'Cultive',
-              type: 'select',
-              indexName: 'name'
-            }
-          }}
+          formItems={ADD_CROP_HISTORY_FORM_ITEMS}
         />
       </div>
     );

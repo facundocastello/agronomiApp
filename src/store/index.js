@@ -1,6 +1,7 @@
 import { combineReducers, createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import bovines from "./bovines";
+import batches from "./batches";
 import bovineTypes from "./bovineTypes";
 import crops from "./crops";
 import forms from "./forms";
@@ -8,6 +9,7 @@ import ui from "./ui";
 
 const reducer = combineReducers({
   bovines: bovines,
+  batches: batches,
   bovineTypes: bovineTypes,
   crops: crops,
   forms: forms,

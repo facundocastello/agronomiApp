@@ -2,21 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import CustomForm from '../components/CustomForm';
+import BovineCard from '../components/BovineCard';
+import Pagination from '../components/Pagination';
 
-import { loadBovineTypes } from '../store/bovineTypes';
 import {
   addBovine,
   deleteBovine,
   loadBovines,
   getBovine
 } from '../store/bovines';
-import BovineCard from '../components/BovineCard';
-import Pagination from '../components/Pagination';
+import { loadBovineTypes } from '../store/bovineTypes';
+import { loadBatches } from '../store/batches';
+import { ADD_BOVINE_FORM_ITEMS } from '../utils/constants';
 
-class BovinesComponent extends Component {
+class BovinesPage extends Component {
   componentDidMount() {
     this.props.loadBovines();
     this.props.loadBovineTypes();
+    this.props.loadBatches();
   }
 
   renderBovines = () => {
@@ -36,7 +39,7 @@ class BovinesComponent extends Component {
   };
 
   render() {
-    const { addBovine, bovines, bovineTypes } = this.props;
+    const { addBovine, batches, bovines, bovineTypes } = this.props;
 
     return (
       <div>
@@ -47,35 +50,7 @@ class BovinesComponent extends Component {
               formName='add-bovine'
               formButton='Add Bovine'
               actionSubmit={addBovine}
-              formItems={{
-                caravane: {
-                  className: 'col-3',
-                  title: 'Caravane'
-                },
-                internCaravane: {
-                  className: 'col-3',
-                  title: 'Intern Caravane'
-                },
-                name: {
-                  className: 'col-3',
-                  title: 'Name'
-                },
-                type: {
-                  className: 'col-3',
-                  elements: bovineTypes,
-                  title: 'Type',
-                  type: 'select',
-                  indexName: '_id'
-                },
-                parent: {
-                  className: 'col-3',
-                  elements: bovines,
-                  emptyElement: { _id: '', name: 'No Parent' },
-                  title: 'Parent',
-                  type: 'select',
-                  indexName: '_id'
-                }
-              }}
+              formItems={ADD_BOVINE_FORM_ITEMS(batches, bovineTypes, bovines)}
             />
             <div className='row py-4 mt-4 bg-light'>
               <Pagination
@@ -92,7 +67,8 @@ class BovinesComponent extends Component {
   }
 }
 
-const mapStateToProps = ({ bovines, bovineTypes }) => ({
+const mapStateToProps = ({ batches, bovines, bovineTypes }) => ({
+  ...batches,
   ...bovines,
   ...bovineTypes
 });
@@ -101,6 +77,7 @@ const mapDispatchToProps = {
   addBovine,
   deleteBovine,
   getBovine,
+  loadBatches,
   loadBovines,
   loadBovineTypes
 };
@@ -108,4 +85,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(BovinesComponent);
+)(BovinesPage);
