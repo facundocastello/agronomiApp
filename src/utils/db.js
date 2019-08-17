@@ -31,11 +31,8 @@ export const addMultiples = data => {
 
 export const updateData = (data, id) => {
   return db.get(id).then(function(doc) {
-    return db.put({
-      _id: id,
-      _rev: doc._rev,
-      ...data
-    });
+    doc = { ...doc, ...data };
+    db.put(doc);
   });
 };
 
