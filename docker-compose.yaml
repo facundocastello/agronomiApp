@@ -8,6 +8,8 @@ services:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
+      - 80:80
+      - 443:443
       - 3000:3000
       - 9229:9229
     command: tail -F anything
@@ -17,9 +19,9 @@ services:
       - couchdb
 
   couchdb:
+    build: ./docker-couchdb
     container_name: couchdb
     hostname: couchdb.local
-    image: "apache/couchdb:${DOCKER_TAG:-latest}"
     environment:
       COUCHDB_ADMIN_USER: admin
       COUCHDB_ADMIN_PASS: secret
@@ -27,3 +29,4 @@ services:
       - "~/data:/opt/couchdb/data"
     ports:
       - "5984:5984"
+      - "6984:6984"
