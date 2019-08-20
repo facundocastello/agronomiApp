@@ -4,7 +4,7 @@ const PouchDB = require('pouchdb').default;
 PouchDB.plugin(require('pouchdb-find').default);
 // PouchDB.plugin(require('pouchdb-debug'));
 const db = new PouchDB('dbname');
-const remoteCouch = 'http://admin:admin@localhost:5984/dbname';
+const remoteCouch = 'https://admin:admin@192.168.0.27:6984/dbname';
 
 // PouchDB.debug.enable('*');
 
